@@ -1,12 +1,8 @@
+import Routing from './routes/Routing';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
-  return (
-    <>
-    <h1 className="text-center">Rehacktor</h1>
-    </>
-  )
+  return <Routing />;
 }
 
-export default App
-
-
-
+export default App;
