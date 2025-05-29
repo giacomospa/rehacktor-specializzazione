@@ -1,9 +1,12 @@
 function App() {
   return (
     <>
-    <h1>Rehacktor</h1>
+    <h1 className="text-center">Rehacktor</h1>
     </>
   )
 }
 
 export default App
+
+
+
