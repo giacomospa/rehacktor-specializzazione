@@ -1,3 +1,28 @@
-h1{
-    color: aqua;
+h1,h2,h3,h4,h5,h6{
+    color: whitesmoke;
+}
+
+p{
+    color: whitesmoke;
+}
+
+body{
+    background-color: #243119;
+}
+
+.navbar-dark{
+    background-color: inherit;
+}
+
+.navbar-brand{
+    color: #F2CD5D;
+}
+
+.navbar-brand:visited{
+    color: #F2CD5D;
+}
+
+.btn-details{
+    background-color: #FFAD5C;
+    color: black;
 }

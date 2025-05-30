@@ -22,7 +22,7 @@ function CardGame({ gameData }) {
             </small>
           </p>
           <div className="mb-2">
-            <span className="badge bg-primary me-1">
+            <span className="badge bg-warning me-1">
               Rating: {gameData.rating}
             </span>
             <span className="badge bg-secondary">
@@ -31,12 +31,12 @@ function CardGame({ gameData }) {
           </div>
           <div className="mb-3">
             {gameData.genres && gameData.genres.slice(0, 2).map(genre => (
-              <span key={genre.id} className="badge bg-info me-1">
+              <span key={genre.id} className="badge bg-secondary me-1">
                 {genre.name}
               </span>
             ))}
           </div>
-          <button className="btn btn-primary mt-auto">
+          <button className="btn btn-details mt-auto">
             Vedi dettagli
           </button>
         </div>
@@ -71,7 +71,7 @@ function HomePage() {
     <div className="container py-5">
       <div className="row">
         <div className="col-12 mb-4">
-          <h1 className="display-5 text-primary mb-3">Giochi del 2024</h1>
+          <h1 className="display-5  mb-3">Giochi del 2024</h1>
           <p className="lead">
             Scopri i migliori giochi rilasciati quest'anno
           </p>
