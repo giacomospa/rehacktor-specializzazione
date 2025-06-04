@@ -1,8 +1,8 @@
 function Footer() {
   return (
-    <footer className="bg-dark text-light py-4 mt-auto">
+    <footer className="bg-black text-light py-4 mt-auto">
       <div className="container text-center">
-        <p>&copy; 2024 MiaApp. Tutti i diritti riservati.</p>
+        <p>&copy; 2025 Rehacktor. Tutti i diritti riservati.</p>
       </div>
     </footer>
   );
