@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 // Sostituisci con la tua API key
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 
 function GamePage() {
   const [data, setData] = useState(null);
@@ -39,11 +39,7 @@ function GamePage() {
   }
 
   if (!data) {
-    return (
-      <div className="container py-5">
-        <p>Caricamento dettagli gioco...</p>
-      </div>
-    );
+    return null;
   }
 
   const image = data.background_image || 'https://via.placeholder.com/800x400?text=No+Image';
@@ -56,8 +52,8 @@ function GamePage() {
         <div className="col-lg-8">
           <img src={image} className="img-fluid rounded mb-4" alt={data.name} />
         </div>
-        <div className="col-lg-4">
-          <h1 className="display-5 text-primary mb-3">{data.name}</h1>
+        <div className="col-lg-4 textwhite">
+          <h1 className="display-5 mb-3">{data.name}</h1>
           
           <div className="mb-3">
             <strong>Data di rilascio:</strong> {data.released || 'Non disponibile'}
@@ -73,10 +69,6 @@ function GamePage() {
           
           <div className="mb-3">
             <strong>Valutazione:</strong> {data.rating || 'N/A'}/5
-          </div>
-          
-          <div className="mb-3">
-            <strong>Metacritic:</strong> {data.metacritic || 'N/A'}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 // Sostituisci con la tua API key
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 
 function CardGame({ gameData }) {
   const image = gameData.background_image || 'https://via.placeholder.com/300x200?text=No+Image';

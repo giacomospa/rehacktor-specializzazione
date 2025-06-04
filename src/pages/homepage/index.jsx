@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import { Link } from 'react-router';
 
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 const initialUrl = `https://api.rawg.io/api/games?key=${API_KEY}&dates=2024-01-01,2024-12-31&page=1`;
@@ -36,9 +36,9 @@ function CardGame({ gameData }) {
               </span>
             ))}
           </div>
-          <button className="btn btn-details mt-auto">
+          <Link to={`/games/${gameData.slug}/${gameData.id}`} className="btn btn-details mt-auto">
             Vedi dettagli
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -84,4 +84,4 @@ function HomePage() {
   );
 }
 
-export default HomePage; 
+export default HomePage;
