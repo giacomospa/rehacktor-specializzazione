@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router';
 
 // Sostituisci con la tua API key
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
@@ -17,7 +17,12 @@ function CardGame({ gameData }) {
           <p className="card-text text-muted small">{genres}</p>
           <p className="card-text"><small className="text-muted">Data di rilascio: {gameData.released}</small></p>
           <div className="mt-auto">
-            <button className="btn btn-primary">Dettagli</button>
+            <Link 
+              to={`/games/${gameData.slug}/${gameData.id}`} 
+              className="btn btn-details"
+            >
+              Vedi dettagli
+            </Link>
           </div>
         </div>
       </div>
@@ -62,8 +67,8 @@ function GenrePage() {
   return (
     <div className="container py-5">
       <div className="row">
-        <div className="col-12 mb-4">
-          <h1 className="display-5 text-primary mb-3">
+        <div className="col-12 mb-4 text-center">
+          <h1 className="display-5 mb-3">
             Giochi - {genre ? genre.charAt(0).toUpperCase() + genre.slice(1) : 'Genere'}
           </h1>
           <p className="lead">

@@ -8,6 +8,7 @@ const genresUrl = `https://api.rawg.io/api/genres?key=${API_KEY}`;
 function GenresDropdown() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const load = async () => {
     try {
@@ -31,30 +32,40 @@ function GenresDropdown() {
   }
 
   return (
-    <div className="dropdown">
+    <div className="dropdown" style={{position: 'relative'}}>
       <button 
         className="nav-link dropdown-toggle" 
-        type="button" 
-        data-bs-toggle="dropdown"
+        type="button"
         style={{background: 'none', border: 'none', color: 'rgba(255,255,255,.55)'}}
+        onClick={() => setIsOpen(!isOpen)}
       >
         Generi
       </button>
-      <ul className="dropdown-menu">
-        {data && data.results ? (
-          data.results.map((genre) => (
-            <li key={genre.id}>
-              <Link to={`/games/${genre.slug}`} className="dropdown-item">
-                {genre.name}
-              </Link>
-            </li>
-          ))
-        ) : (
-          <li><span className="dropdown-item">Caricamento generi...</span></li>
-        )}
-      </ul>
+      {isOpen && (
+        <ul 
+          className="dropdown-menu" 
+          style={{display: 'block', position: 'absolute', top: '100%', left: 0, zIndex: 1000}}
+        >
+          {data && data.results ? (
+            data.results.map((genre) => (
+              <li key={genre.id}>
+                <Link 
+                  to={`/games/${genre.slug}`} 
+                  className="dropdown-item"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {genre.name}
+                </Link>
+              </li>
+            ))
+          ) : (
+            <li><span className="dropdown-item">Caricamento generi...</span></li>
+          )}
+        </ul>
+      )}
     </div>
   );
 }
 
 export default GenresDropdown;
+
