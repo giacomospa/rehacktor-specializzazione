@@ -1,31 +1,20 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import useFetchSolution from '../../hooks/useFetchSolution';
 
-// Sostituisci con la tua API key
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 
 function GamePage() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-
-  const load = async () => {
-    try {
-      const gameUrl = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`;
-      const response = await fetch(gameUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  const initialUrl = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`;
+  const { data, loading, error, updateUrl } = useFetchSolution(initialUrl);
 
   useEffect(() => {
-    load();
-  }, [id]);
+    if (id) {
+      const newUrl = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`;
+      updateUrl(newUrl);
+    }
+  }, [id, updateUrl]);
 
   if (error) {
     return (

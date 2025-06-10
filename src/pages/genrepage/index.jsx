@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
+import { useEffect } from 'react';
+import useFetchSolution from '../../hooks/useFetchSolution';
 
-// Sostituisci con la tua API key
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 
 function CardGame({ gameData }) {
@@ -19,7 +19,7 @@ function CardGame({ gameData }) {
           <div className="mt-auto">
             <Link 
               to={`/games/${gameData.slug}/${gameData.id}`} 
-              className="btn btn-details"
+              className="btn btn-primary"
             >
               Vedi dettagli
             </Link>
@@ -31,44 +31,22 @@ function CardGame({ gameData }) {
 }
 
 function GenrePage() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const { genre } = useParams();
-
-  const load = async () => {
-    try {
-      const genreUrl = `https://api.rawg.io/api/games?key=${API_KEY}&genres=${genre}&page=1`;
-      const response = await fetch(genreUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  const initialUrl = `https://api.rawg.io/api/games?key=${API_KEY}&genres=${genre}&page=1`;
+  const { data, loading, error, updateUrl } = useFetchSolution(initialUrl);
 
   useEffect(() => {
-    load();
-  }, [genre]);
-
-  if (error) {
-    return (
-      <div className="container py-5">
-        <div className="alert alert-danger">
-          <h4>Errore nel caricamento</h4>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
+    if (genre) {
+      const newUrl = `https://api.rawg.io/api/games?key=${API_KEY}&genres=${genre}&page=1`;
+      updateUrl(newUrl);
+    }
+  }, [genre, updateUrl]);
 
   return (
     <div className="container py-5">
       <div className="row">
-        <div className="col-12 mb-4 text-center">
-          <h1 className="display-5 mb-3">
+        <div className="col-12 mb-4">
+          <h1 className="display-5 text-primary mb-3">
             Giochi - {genre ? genre.charAt(0).toUpperCase() + genre.slice(1) : 'Genere'}
           </h1>
           <p className="lead">
@@ -76,15 +54,29 @@ function GenrePage() {
           </p>
         </div>
       </div>
+
+      {error && (
+        <div className="row">
+          <div className="col-12">
+            <div className="alert alert-danger">
+              <h4>Errore nel caricamento</h4>
+              <p>{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="row">
         {data && data.results ? (
           data.results.map((game) => (
             <CardGame key={game.id} gameData={game} />
           ))
         ) : (
-          <div className="col-12">
-            <p>Nessun gioco trovato per questo genere.</p>
-          </div>
+          !loading && !error && (
+            <div className="col-12">
+              <p>Nessun gioco trovato per questo genere.</p>
+            </div>
+          )
         )}
       </div>
     </div>

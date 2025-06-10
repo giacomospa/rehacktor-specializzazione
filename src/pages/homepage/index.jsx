@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
+import useFetchSolution from '../../hooks/useFetchSolution';
 
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 const initialUrl = `https://api.rawg.io/api/games?key=${API_KEY}&dates=2024-01-01,2024-12-31&page=1`;
@@ -9,8 +9,8 @@ function CardGame({ gameData }) {
     <div className="col-md-4 mb-4">
       <div className="card h-100">
         <img 
-          src={gameData.background_image} 
-          className="card-img-top" 
+          src={gameData.background_image}
+          className="card-img-top"
           alt={gameData.name}
           style={{ height: '200px', objectFit: 'cover' }}
         />
@@ -36,7 +36,10 @@ function CardGame({ gameData }) {
               </span>
             ))}
           </div>
-          <Link to={`/games/${gameData.slug}/${gameData.id}`} className="btn btn-details mt-auto">
+          <Link 
+            to={`/games/${gameData.slug}/${gameData.id}`} 
+            className="btn btn-details mt-auto"
+          >
             Vedi dettagli
           </Link>
         </div>
@@ -46,26 +49,7 @@ function CardGame({ gameData }) {
 }
 
 function HomePage() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
-  const load = async () => {
-    try {
-      const response = await fetch(initialUrl);
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      setError(error.message);
-      setData(null);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
+  const { data, loading, error } = useFetchSolution(initialUrl);
 
   return (
     <div className="container py-5">
@@ -74,6 +58,17 @@ function HomePage() {
           <h1 className="display-5 text-center mb-3">Giochi del 2024</h1>
         </div>
       </div>
+      
+      {error && (
+        <div className="row">
+          <div className="col-12">
+            <div className="alert alert-danger">
+              <h4>Errore nel caricamento</h4>
+              <p>{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
       
       <div className="row">
         {data && data.results && data.results.map(game => (
