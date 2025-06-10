@@ -29,7 +29,7 @@ export default function Searchbar() {
       />
       <button 
         type="submit" 
-        className="btn btn-outline-primary"
+        className="btn btn-outline-light"
         disabled={!searchTerm.trim()}
       >
         Cerca
