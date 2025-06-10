@@ -19,7 +19,7 @@ function CardGame({ gameData }) {
           <div className="mt-auto">
             <Link 
               to={`/games/${gameData.slug}/${gameData.id}`} 
-              className="btn btn-primary"
+              className="btn btn-details"
             >
               Vedi dettagli
             </Link>
@@ -46,7 +46,7 @@ function GenrePage() {
     <div className="container py-5">
       <div className="row">
         <div className="col-12 mb-4">
-          <h1 className="display-5 text-primary mb-3">
+          <h1 className="display-5 mb-3">
             Giochi - {genre ? genre.charAt(0).toUpperCase() + genre.slice(1) : 'Genere'}
           </h1>
           <p className="lead">
