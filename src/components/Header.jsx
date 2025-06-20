@@ -1,27 +1,12 @@
 import { Link } from 'react-router';
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { supabase } from '../supabase/supabase-client';
 import GenresDropdown from './GenresDropdown.jsx';
-import Searchbar from './Searchbar.jsx'; 
+import Searchbar from './Searchbar.jsx';
+import SessionContext from '../context/SessionContext.js';
 
 function Header() {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    // Ottieni la sessione corrente
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    // Ascolta i cambiamenti di autenticazione
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { session, loading } = useContext(SessionContext);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -58,7 +43,6 @@ function Header() {
         
         {/* Conditional rendering per autenticazione */}
         {session ? (
-          // Utente loggato - mostra informazioni utente e logout
           <div className="d-flex align-items-center">
             <span className="text-details me-3">
               Ciao, {session.user.user_metadata?.first_name || session.user.email}
@@ -71,7 +55,6 @@ function Header() {
             </button>
           </div>
         ) : (
-          // Utente non loggato - mostra link registrazione e login
           <div className="d-flex">
             <li className="list-unstyled me-3">
               <Link to="/register" className="text-decoration-none text-details">
