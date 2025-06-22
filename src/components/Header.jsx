@@ -47,6 +47,9 @@ function Header() {
             <span className="text-details me-3">
               Ciao, {session.user.user_metadata?.first_name || session.user.email}
             </span>
+            <Link to="/account" className="text-decoration-none text-details me-3">
+              Account
+            </Link>
             <button 
               onClick={handleLogout}
               className="btn btn-outline-light btn-sm"
