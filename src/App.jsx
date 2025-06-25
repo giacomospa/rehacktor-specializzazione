@@ -1,13 +1,14 @@
-import Routing from './routes/Routing';
-import SessionProvider from './context/SessionProvider';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routing } from "./routes/Routing";
+import SessionProvider from "./context/SessionProvider";
+import FavoritesProvider from './context/FavoritesProvider';
 
-function App() {
+export default function App() {
   return (
     <SessionProvider>
-      <Routing />
+      <FavoritesProvider>
+        <Routing />
+      </FavoritesProvider>
     </SessionProvider>
   );
 }
 
-export default App;
