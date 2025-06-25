@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import useFetchSolution from '../../hooks/useFetchSolution';
+import ToggleFavorite from '../../components/ToggleFavorite';
 
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
 
@@ -42,7 +43,10 @@ function GamePage() {
           <img src={image} className="img-fluid rounded mb-4" alt={data.name} />
         </div>
         <div className="col-lg-4 textwhite">
-          <h1 className="display-5 mb-3">{data.name}</h1>
+          <div className="d-flex justify-content-between align-items-start mb-3">
+            <h1 className="display-5 mb-0">{data.name}</h1>
+            <ToggleFavorite game={data} />
+          </div>
           
           <div className="mb-3">
             <strong>Data di rilascio:</strong> {data.released || 'Non disponibile'}
