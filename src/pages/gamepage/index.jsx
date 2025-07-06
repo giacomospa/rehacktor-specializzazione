@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import useFetchSolution from '../../hooks/useFetchSolution';
 import ToggleFavorite from '../../components/ToggleFavorite';
-import Chatbox from '../../components/ChatBox';
+import Chatbox from '../../components/Chatbox';
 
 
 const API_KEY = "9658c510769241f68a269f4bc5ce0a55";
